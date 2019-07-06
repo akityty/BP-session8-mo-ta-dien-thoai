@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form id="nokiaForm">
+    <h3>Nokia</h3>
+    <button type="button" class="nokia" onclick="nokia.upPin()">Sạc Pin</button>
+    <button type="button" class="nokia" onclick="nokia.writeMessage()">Soạn Tin Nhắn</button>
+    <button type="button" class="nokia" onclick="nokiaSendMessageToIphone()"> Gửi Tin Nhắn</button>
+</form>
+<form id="iphoneForm">
+    <h3>Iphone</h3>
+    <button type="button" class="iphone" onclick="iphone.upPin()">Sạc Pin</button>
+    <button type="button" class="iphone" onclick="iphone.displayMessage()">Xem Tin Nhắn</button>
+</form>
+
+<script>
+
+    function Mobile(pin, outBox, inBox, message) {
+        this.pin = pin;
+        this.inBox = inBox;
+        this.message = message;
+        this.getMessage = function () {
+            return this.message;
+        };
+        this.upPin = function () {
+            this.pin += 1;
+        };
+        this.batteryDown = function () {
+            this.pin -= 1;
+        };
+        this.writeMessage = function () {
+            if (this.pin > 0) {
+                this.message = prompt("Mời Nhập tin nhắn");
+                this.batteryDown();
+            } else alert("máy đã tắt");
+        };
+       this.displayMessage = function () {
+          if(this.pin<=0){
+              alert("máy đã tắt");
+          }
+          else{
+              alert(this.inBox);
+              this.batteryDown;
+          }
+       };
+    }
+
+    let nokia = new Mobile(3, [], [], "");
+    let iphone = new Mobile(3, [], [], "");
+    let i =0;
+
+    function nokiaSendMessageToIphone() {
+
+        if (nokia.pin > 0) {
+            let nokiaMessage = nokia.getMessage();
+            iphone.inBox[i] = nokiaMessage;
+            i++;
+            nokia.batteryDown();
+        } else alert("máy đã tắt");
+    }
+
+</script>
+</body>
+</html>
